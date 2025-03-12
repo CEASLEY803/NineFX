@@ -11,7 +11,7 @@ start() ->
     % Wait for a 'DOWN' message which will be sent when the monitored process terminates.
     receive
         %% '_' before Pid because I will not be using it later.
-        %% in this case, DOWN needs 5 parameters {'DOWN', Ref, process, Pid, Reason}. Again, though we dont end up using the Pid.
+        %% in this case, DOWN needs 5 parameters {'DOWN', Ref, process, Pid, Reason}.
         {'DOWN', Ref, process, _Pid, Reason} ->
             io:format("Monitored process died with reason: ~p~n", [Reason])
     end.

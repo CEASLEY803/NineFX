@@ -27,6 +27,8 @@ start(_StartType, _StartArgs) ->
     io:format("  7. monitor_demo:start()~n"),
     io:format("  8. link_demo:start()~n"),
 
+    io:format("  9. Pid = counter:start().~n"),
+    io:format("  9. (cont.) counter:increment(Pid), counter:decrement(Pid), counter:get_count(Pid), counter:quit(Pid)~n"),
     learning_content_other_sup:start_link().
 
 stop(_State) ->
