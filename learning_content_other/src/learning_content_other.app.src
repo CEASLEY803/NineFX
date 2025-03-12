@@ -1,8 +1,8 @@
-{application, functions, [
+{application, learning_content_other, [
     {description, "An OTP application"},
     {vsn, "0.1.0"},
     {registered, []},
-    {mod, {functions_app, []}},
+    {mod, {learning_content_other_app, []}},
     {applications, [
         kernel,
         stdlib

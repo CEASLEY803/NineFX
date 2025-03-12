@@ -1,9 +1,9 @@
 %%%-------------------------------------------------------------------
-%% @doc concurrency top level supervisor.
+%% @doc learning_content_other top level supervisor.
 %% @end
 %%%-------------------------------------------------------------------
 
--module(concurrency_sup).
+-module(learning_content_other_sup).
 
 -behaviour(supervisor).
 
