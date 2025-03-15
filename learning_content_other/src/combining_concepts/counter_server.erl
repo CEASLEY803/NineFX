@@ -1,9 +1,12 @@
+%% First session: transform the counter into a gen_server behavior model, limited to synchronous calls.
+%% Second session: implement asynchronous calls.
+
 %% the goal here is to make our counter into the gen_server behavior model.
 -module(counter_server).
 -behaviour(gen_server).
 
 %% Public API Exports
--export([start_link/0, increment/0, decrement/0, get_count/0, reset/0, crash/0]).
+-export([start_link/0, increment/0, decrement/0, get_count/0, reset/0, crash/0, reset_async/0, increment_async/0, decrement_async/0]).
 
 %% gen_server Callback Exports
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -18,8 +21,14 @@ start_link() ->
 increment() ->
     gen_server:call(?MODULE, increment).
 
+increment_async() ->
+    gen_server:cast(?MODULE, increment).
+
 decrement() ->
     gen_server:call(?MODULE, decrement).
+
+decrement_async() ->
+    gen_server:cast(?MODULE, decrement).
 
 get_count() ->
     gen_server:call(?MODULE, get).
@@ -27,10 +36,13 @@ get_count() ->
 reset() ->
     gen_server:call(?MODULE, reset).
 
+reset_async() ->
+    gen_server:cast(?MODULE, reset).
+
 crash() ->
     gen_server:call(?MODULE, crash).
 
-%% gen_server Callback 
+
 
 %% init/1:
 %% - Called when the server starts.
@@ -39,6 +51,7 @@ crash() ->
 init(InitialState) ->
     {ok, InitialState}.
 
+%% gen_server Callback 
 handle_call(increment, _From, State) ->
     %% Increment the counter.
     NewState = State + 1,
@@ -67,8 +80,24 @@ handle_call(crash, _From, State) ->
 handle_call(Unknown, _From, State) ->
     {reply, {error, Unknown}, State}.
 
+
+handle_cast(reset, _State) ->
+    %% Reset the counter to 0.
+    {noreply, 0};
+
+handle_cast(increment, State) ->
+    %% Increment the counter.
+    NewState = State + 1,
+    {noreply, NewState};
+
+handle_cast(decrement, State) ->
+    %% Decrement the counter.
+    NewState = State - 1,
+    {noreply, NewState};
+
 handle_cast(_Msg, State) ->
     {noreply, State}.
+    
 
 handle_info(_Info, State) ->
     {noreply, State}.
