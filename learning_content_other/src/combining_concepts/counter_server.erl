@@ -17,7 +17,7 @@ start_link() ->
     %% same as the generic server example, but the initial state is 0 (the counter starts at 0)
     gen_server:start_link({local, ?MODULE}, ?MODULE, 0, []).
 
-%% gen_server:call sends {call, {CallerPid, UniqueRef}, increment}
+%% gen_server:call sends {call, {CallerPid, UniqueRef}, Request} to the server.
 increment() ->
     gen_server:call(?MODULE, increment).
 
