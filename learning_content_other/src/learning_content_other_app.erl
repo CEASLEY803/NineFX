@@ -28,9 +28,9 @@ start(_StartType, _StartArgs) ->
     io:format("  8. link_demo:start()~n~n"),
 
     io:format("** Combined Concepts **~n"),
-    io:format("  9. Pid = counter:start().~n"),
-    io:format("  9. (cont.) counter:increment(Pid), counter:decrement(Pid),~n"),
-    io:format("     counter:get_count(Pid), counter:reset(Pid), counter:quit(Pid).~n"),
+    io:format("  9. counter_sup:start_link().~n"),
+    io:format("  9. (cont.) counter_server:increment_async(), counter_server:increment(), counter_server:decrement_async(), counter_server:decrement(), counter_server:get_word(),~n"),
+    io:format("             counter_server:get_count(), counter_server:reset_async(), counter_server:reset(), counter_server:crash(), counter_server:quit().~n"),
     learning_content_other_sup:start_link().
 
 stop(_State) ->
